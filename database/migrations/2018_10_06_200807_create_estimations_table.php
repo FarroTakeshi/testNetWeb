@@ -23,7 +23,7 @@ class CreateEstimationsTable extends Migration
             $table->integer('c_usecase');
             $table->integer('tef');
             $table->integer('f_productivity');
-            $table->integer('effort_estimated');
+            $table->integer('effort_estimated')->nullable();
             $table->dateTime('request_date');
             $table->integer('user_id')->unsigned()->nullable();
         });

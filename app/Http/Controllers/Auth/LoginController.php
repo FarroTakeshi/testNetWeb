@@ -25,7 +25,13 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function authenticated($request, $user) {
+        if ($user->role_id == config('data.roles.ROLE_CLIENT'))
+            return redirect()->route('estimations.index');
+        else
+            return redirect('/home');
+    }
+    //protected $redirectTo = '/home';
 
     public function username()
     {

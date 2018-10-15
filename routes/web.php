@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Backend'], function () {
+    Route::group(['prefix' => 'estimations', 'as' => 'estimations.'], function(){
+        Route::get('/index', ['as' => 'index', 'uses' => 'EstimationController@index']);
+        Route::get('/new', ['as' => 'create', 'uses' => 'EstimationController@create']);
+        Route::post('/new', ['as' => 'store', 'uses' => 'EstimationController@store']);
+   });
+});

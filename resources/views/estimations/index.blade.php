@@ -20,7 +20,7 @@
                             <th>TEF</th>
                             <th>F. productividad</th>
                             <th>Fecha</th>
-                            <th>Esfuerzo Estimado</th>
+                            <th>Esfuerzo Estimado (Horas-hombre)</th>
                         </thead>
                         <tbody>
                         @foreach ($estimations as $estimation)

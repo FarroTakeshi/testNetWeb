@@ -15,9 +15,9 @@ class CreateHiddenWeightsTable extends Migration
     {
         Schema::create('hidden_weights', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('neuron1');
-            $table->integer('neuron2');
-            $table->integer('neuron3');
+            $table->double('neuron1', 21, 20);
+            $table->double('neuron2', 21, 20);
+            $table->double('neuron3', 21, 20);
             $table->integer('train_id')->unsigned()->nullable();
         });
     }

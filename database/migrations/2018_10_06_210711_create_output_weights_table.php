@@ -15,7 +15,7 @@ class CreateOutputWeightsTable extends Migration
     {
         Schema::create('output_weights', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('neuron1');
+            $table->double('neuron1', 21, 20);
             $table->integer('train_id')->unsigned()->nullable();
         });
     }

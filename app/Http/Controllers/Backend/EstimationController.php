@@ -10,12 +10,17 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+
 class EstimationController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
         $estimations = $user->estimations;
+
+        $estimations = $estimations->sortByDesc('request_date');
 
         return view('estimations.index', compact('estimations'));
     }
@@ -41,6 +46,25 @@ class EstimationController extends Controller
         $current_date = Carbon::now();
         $user_id      = Auth::id();
 
+        $inputs = array(request('s_actor'),
+                    request('a_actor'),
+                    request('c_actor'),
+                    request('s_usecase'),
+                    request('a_usecase'),
+                    request('c_usecase'),
+                    request('tef')/100,
+                    request('f_productivity')
+                );
+
+        $json = json_encode($inputs);
+        $process = new Process("python /Users/takeshi/PycharmProjects/testnet/estimation.py  {$json}");
+        $process->run();
+
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
         $estimation = Estimation::create([
             's_actor'        => request('s_actor'),
             'a_actor'        => request('a_actor'),
@@ -52,6 +76,7 @@ class EstimationController extends Controller
             'f_productivity' => request('f_productivity'),
             'request_date'   => $current_date,
             'user_id'        => $user_id,
+            'effort_estimated' => $process->getOutput(),
         ]);
 
         return redirect()->route('estimations.index')

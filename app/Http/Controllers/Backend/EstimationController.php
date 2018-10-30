@@ -65,21 +65,30 @@ class EstimationController extends Controller
             throw new ProcessFailedException($process);
         }
 
+        $output = $process->getOutput();
+
         $estimation = Estimation::create([
-            's_actor'        => request('s_actor'),
-            'a_actor'        => request('a_actor'),
-            'c_actor'        => request('c_actor'),
-            's_usecase'      => request('s_usecase'),
-            'a_usecase'      => request('a_usecase'),
-            'c_usecase'      => request('c_usecase'),
-            'tef'            => request('tef'),
-            'f_productivity' => request('f_productivity'),
-            'request_date'   => $current_date,
-            'user_id'        => $user_id,
-            'effort_estimated' => $process->getOutput(),
+            's_actor'          => request('s_actor'),
+            'a_actor'          => request('a_actor'),
+            'c_actor'          => request('c_actor'),
+            's_usecase'        => request('s_usecase'),
+            'a_usecase'        => request('a_usecase'),
+            'c_usecase'        => request('c_usecase'),
+            'tef'              => request('tef'),
+            'f_productivity'   => request('f_productivity'),
+            'request_date'     => $current_date,
+            'user_id'          => $user_id,
+            'effort_estimated' => $output,
         ]);
 
-        return redirect()->route('estimations.index')
+        return redirect()->route('estimations.result', ['id' => $estimation->id])
                          ->with('message', 'Operacion completada');
+    }
+
+    public function result($id)
+    {
+        $estimation = Estimation::find($id);
+        $output = $estimation->effort_estimated;
+        return view('estimations.result', compact('output'));
     }
 }

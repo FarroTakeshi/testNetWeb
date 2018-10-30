@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('extra-css')
+  <style type="text/css">
+    .table td {
+        text-align: center;
+    }
+    .table th {
+        text-align: center;
+    }
+
+  </style>
+@endsection
+
 @section('content')
 <div class="wraper container-fluid">
     <div class="container">
@@ -18,7 +30,7 @@
                             <th>CUS Promedios</th>
                             <th>CUS Complejos</th>
                             <th>TEF</th>
-                            <th>F. productividad</th>
+                            <th>Factor de productividad</th>
                             <th>Fecha</th>
                             <th>Esfuerzo Estimado (Horas-hombre)</th>
                         </thead>
@@ -40,7 +52,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
+                <div class="col-md-4">
                     <a class="btn btn-success" href="{{ route('estimations.create') }}">Nueva estimacion</a>
                 </div>
             </div>

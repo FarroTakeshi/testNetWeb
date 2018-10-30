@@ -24,5 +24,6 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'Backend'], functi
         Route::get('/index', ['as' => 'index', 'uses' => 'EstimationController@index']);
         Route::get('/new', ['as' => 'create', 'uses' => 'EstimationController@create']);
         Route::post('/new', ['as' => 'store', 'uses' => 'EstimationController@store']);
+        Route::get('/result/{id}', ['as' => 'result', 'uses' => 'EstimationController@result']);
    });
 });

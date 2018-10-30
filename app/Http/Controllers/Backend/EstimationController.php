@@ -33,14 +33,14 @@ class EstimationController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            's_actor'        => 'required|integer',
-            'a_actor'        => 'required|integer',
-            'c_actor'        => 'required|integer',
-            's_usecase'      => 'required|integer',
-            'a_usecase'      => 'required|integer',
-            'c_usecase'      => 'required|integer',
-            'tef'            => 'required|integer',
-            'f_productivity' => 'required|integer',
+            's_actor'        => 'required|integer|between:0,99',
+            'a_actor'        => 'required|integer|between:0,99',
+            'c_actor'        => 'required|integer|between:0,99',
+            's_usecase'      => 'required|integer|between:0,99',
+            'a_usecase'      => 'required|integer|between:0,99',
+            'c_usecase'      => 'required|integer|between:0,99',
+            'tef'            => 'required|integer|between:1,165',
+            'f_productivity' => 'required|integer|between:1,99',
         ]);
 
         $current_date = Carbon::now();
